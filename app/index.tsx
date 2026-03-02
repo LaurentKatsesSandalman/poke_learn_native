@@ -1,6 +1,7 @@
 import { Card } from "@/components/Card";
 import { PokemonCard } from "@/components/pokemon/PokemonCard";
 import { ThemedText } from "@/components/ThemedText";
+import { useFetchQuery } from "@/hooks/useFetchQuery";
 import { useThemeColors } from "@/hooks/useThemeColors";
 // import { Link } from "expo-router";
 import { FlatList, Image, StyleSheet, Text, View } from "react-native";
@@ -8,7 +9,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
     const colors = useThemeColors();
-	const pokemons = Array.from({length:35}, (_,k)=>({name: "Pokémon Name", id: k+1}))
+	// const pokemons = Array.from({length:35}, (_,k)=>({name: "Pokémon Name", id: k+1}))
+
+	const {data}=useFetchQuery("/pokemon?limit=21")
+	const pokemons = data?.results ?? []
 
     return (
         <SafeAreaView
